@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "com.lazrproductions.lazrslib.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "mixin.lazrslib.refmap.json",
+    "server": [
+    ],
+    "mixins": [
+    ],
+    "client": [
+        "GuiMixin",
+        "MouseHandlerMixin"
+    ],
+    "minVersion": "0.8"
+}
