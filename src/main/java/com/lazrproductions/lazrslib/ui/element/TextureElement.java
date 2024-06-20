@@ -9,7 +9,7 @@ import com.lazrproductions.lazrslib.screen.base.ScreenTexture;
 import com.lazrproductions.lazrslib.ui.Alignment;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 
 public class TextureElement extends AbstractElement {

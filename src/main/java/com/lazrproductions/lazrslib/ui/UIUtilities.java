@@ -2,10 +2,10 @@ package com.lazrproductions.lazrslib.ui;
 
 import javax.annotation.Nonnull;
 
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import com.lazrproductions.lazrslib.ui.element.VerticalElement;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 
 public class UIUtilities {
     public static boolean DRAW_DEBUG_WIDGETS = false;

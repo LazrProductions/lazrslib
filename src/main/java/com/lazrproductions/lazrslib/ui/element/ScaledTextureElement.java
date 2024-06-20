@@ -7,7 +7,7 @@ import com.lazrproductions.lazrslib.screen.base.ScreenRect;
 import com.lazrproductions.lazrslib.screen.base.ScreenTexture;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 
 public class ScaledTextureElement extends AbstractElement {

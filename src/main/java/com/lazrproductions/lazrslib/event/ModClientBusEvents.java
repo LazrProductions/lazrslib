@@ -1,18 +1,19 @@
 package com.lazrproductions.lazrslib.event;
 
+import com.lazrproductions.lazrslib.LazrsLibMod;
 import com.lazrproductions.lazrslib.overlay.base.InteractableOverlay;
 import com.lazrproductions.lazrslib.screen.base.GenericScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-@OnlyIn(Dist.CLIENT)
-public class ModClientEvents {
+@Mod.EventBusSubscriber(modid = LazrsLibMod.MODID, value = Dist.CLIENT)
+public class ModClientBusEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
         Minecraft inst = Minecraft.getInstance();

@@ -4,9 +4,9 @@ import javax.annotation.Nonnull;
 
 import com.lazrproductions.lazrslib.screen.base.InputAction;
 import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Overlay;
 
 public class InteractableOverlay extends Overlay {
@@ -31,11 +31,13 @@ public class InteractableOverlay extends Overlay {
 
     int mouseX, mouseY;
 
+    protected int tick;
+
     protected InputAction lastKeyInput = InputAction.NONE;
     protected InputAction lastMouseInput = InputAction.NONE;
 
     @Override
-    public void render(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@Nonnull PoseStack graphics, int mouseX, int mouseY, float partialTick) {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
         width = window.getGuiScaledWidth();
@@ -45,7 +47,9 @@ public class InteractableOverlay extends Overlay {
         lastMouseInput = InputAction.NONE;
     }
 
-    public void tick() {}
+    public void tick() {
+        tick++;
+    }
 
     public void handleMouseAction(int mouseButton, int action) {
         lastMouseInput = new InputAction(mouseButton, action);

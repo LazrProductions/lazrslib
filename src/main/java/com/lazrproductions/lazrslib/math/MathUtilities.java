@@ -106,5 +106,27 @@ public class MathUtilities {
         return GetPositionFromTowardsRotation(pos, yaw, pitch, distance);
     }
 
+    public static float invsqrt(float r) {
+        return 1.0f / (float) java.lang.Math.sqrt(r);
+    }
+    public static double invsqrt(double r) {
+        return 1.0 / java.lang.Math.sqrt(r);
+    }
 
+    public static float safeAcos(float v) {
+        if (v < -1.0f)
+            return (float)Math.PI;
+        else if (v > +1.0f)
+            return 0.0f;
+        else
+            return (float)Math.acos(v);
+    }
+    public static double safeAcos(double v) {
+        if (v < -1.0)
+            return Math.PI;
+        else if (v > +1.0)
+            return 0.0;
+        else
+            return Math.acos(v);
+    }
 }

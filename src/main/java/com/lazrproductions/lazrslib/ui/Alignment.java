@@ -1,7 +1,6 @@
 package com.lazrproductions.lazrslib.ui;
 
-import org.joml.Vector2i;
-
+import com.lazrproductions.lazrslib.math.Vector2i;
 import com.lazrproductions.lazrslib.screen.base.BlitCoordinates;
 import com.lazrproductions.lazrslib.screen.base.ScreenRect;
 
