@@ -8,7 +8,7 @@ import com.lazrproductions.lazrslib.ui.Alignment;
 import com.lazrproductions.lazrslib.ui.OnClickFunction;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 public class LinkElement extends AbstractElement {

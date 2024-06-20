@@ -2,10 +2,10 @@ package com.lazrproductions.lazrslib.ui.element;
 
 import javax.annotation.Nonnull;
 
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import com.lazrproductions.lazrslib.screen.base.BlitCoordinates;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 
 public class HorizontalElement {
     final AbstractElement[] elements;

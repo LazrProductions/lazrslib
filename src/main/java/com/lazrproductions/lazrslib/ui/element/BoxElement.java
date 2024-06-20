@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import com.lazrproductions.lazrslib.screen.base.ScreenRect;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 
 public class BoxElement extends AbstractElement {
     final int color;

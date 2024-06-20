@@ -4,29 +4,28 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.joml.Matrix4f;
-
 import com.lazrproductions.lazrslib.LazrsLibMod;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import com.lazrproductions.lazrslib.screen.base.BlitCoordinates;
 import com.lazrproductions.lazrslib.screen.base.ScreenRect;
 import com.lazrproductions.lazrslib.screen.base.ScreenTexture;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Axis;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class ScreenUtilities {
@@ -43,7 +42,9 @@ public class ScreenUtilities {
     }
     public static void drawTexture(GuiGraphics graphics, BlitCoordinates pos, float rotation, float rotateAroundX, float rotateAroundY, ScreenTexture texture) {
         graphics.pose().pushPose();
-        graphics.pose().rotateAround(Axis.ZP.rotationDegrees(rotation), pos.getX() + rotateAroundX, pos.getY() + rotateAroundY, 0);
+        graphics.pose().translate(pos.getX() + rotateAroundX, pos.getY() + rotateAroundY, 0);
+        graphics.pose().mulPose(Vector3f.ZP.rotationDegrees(rotation));
+        graphics.pose().translate(-(pos.getX() + rotateAroundX), -(pos.getY() + rotateAroundY), 0);
 
         graphics.blit(texture.getResourceLocation(), pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(),
                 texture.getU(), texture.getV(), texture.getBoundsX(), texture.getBoundsY(), texture.getWidth(),
@@ -83,35 +84,6 @@ public class ScreenUtilities {
         graphics.fill(pos.getX() + shakeX, pos.getY() + pos.getHeight(), pos.getX() + 1 + shakeX, pos.getY() + pos.getHeight() - (int) (pos.getHeight() * progress), i | -16777216);
     }
 
-
-    public static void renderLabel(Minecraft instance, GuiGraphics graphics, int x, int y, List<Component> list, int color, boolean renderShadow) {
-        int space = 15;
-        int width = 0;
-        for (int i = 0; i < list.size(); i++) {
-            String text = list.get(i).getString();
-            width = Math.max(width, instance.font.width(text) + 10);
-        }
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
-        for (int i = 0; i < list.size(); i++) {
-            String text = list.get(i).getString();
-            graphics.drawString(instance.font, text,
-                    x - instance.font.width(text) / 2,
-                    y + ((list.size() / 2) * space + (space * i)),
-                    color, renderShadow);
-        }
-        RenderSystem.enableDepthTest();
-    }
-    public static void renderLabel(Minecraft instance, GuiGraphics graphics, int x, int y, List<Component> list, int color) {
-        renderLabel(instance, graphics, x, y, list, color, true);
-    }
-
-
     public static void drawParagraph(Minecraft instance, GuiGraphics graphics, int x, int y, List<Component> list, int maxWidth, int color, boolean renderShadow) {        
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.defaultBlendFunc();
@@ -146,14 +118,14 @@ public class ScreenUtilities {
             graphics.pose().translate((float) (x + (size / 2)), (float) (y + (size / 2)), (float) (150 + (bakedmodel.isGui3d() ? 0 : 0)));
             
             try {
-                graphics.pose().mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+                graphics.pose().mulPoseMatrix(Matrix4f.createScaleMatrix(1.0F, -1.0F, 1.0F));
                 graphics.pose().scale(size, size, size);
                 boolean flag = !bakedmodel.usesBlockLight();
                 if (flag) {
                     Lighting.setupForFlatItems();
                 }
 
-                instance.getItemRenderer().render(stack, ItemDisplayContext.GUI, false, graphics.pose(),
+                instance.getItemRenderer().render(stack, ItemTransforms.TransformType.GUI, false, graphics.pose(),
                         graphics.bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
                 graphics.flush();
                 if (flag) {

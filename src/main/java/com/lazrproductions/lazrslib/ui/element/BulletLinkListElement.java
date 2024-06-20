@@ -12,7 +12,7 @@ import com.lazrproductions.lazrslib.ui.OnClickFunction;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 public class BulletLinkListElement extends AbstractElement {
@@ -23,16 +23,30 @@ public class BulletLinkListElement extends AbstractElement {
             final int width;
             final ScreenTexture bulletTexture;
             final List<Pair<Component, OnClickFunction>> itemList;
+
             final int textColor;
             final int highlightedColor;
+            final boolean renderShadow;
 
             public BulletLinkListElement(@Nonnull Minecraft instance, int width, @Nonnull ScreenTexture bulletTexture, @Nonnull List<Pair<Component, OnClickFunction>> list, int textColor, int highlightedColor) {
                 super(instance, getTotalHeight(instance, width, list));
                 this.width = width;
                 this.bulletTexture = bulletTexture;
                 this.itemList = list;
+
                 this.textColor = textColor;
                 this.highlightedColor = highlightedColor;
+                this.renderShadow = true;
+            }
+            public BulletLinkListElement(@Nonnull Minecraft instance, int width, @Nonnull ScreenTexture bulletTexture, @Nonnull List<Pair<Component, OnClickFunction>> list, int textColor, int highlightedColor, boolean renderShadow) {
+                super(instance, getTotalHeight(instance, width, list));
+                this.width = width;
+                this.bulletTexture = bulletTexture;
+                this.itemList = list;
+
+                this.textColor = textColor;
+                this.highlightedColor = highlightedColor;
+                this.renderShadow = renderShadow;
             }
 
             @Override
@@ -52,7 +66,7 @@ public class BulletLinkListElement extends AbstractElement {
                             area.toBlitCoordinates().move((LIST_ICON_SIZE - 4), totalHeight).withWidth(area.toBlitCoordinates().getWidth() - (LIST_ICON_SIZE - 4)).withHeight(localHeight), 
                             itemList.get(i).getFirst(),
                             textColor,
-                            highlightedColor, false,
+                            highlightedColor, renderShadow,
                             mouseX, mouseY, mouseDown))
                         clicked = i;
                     

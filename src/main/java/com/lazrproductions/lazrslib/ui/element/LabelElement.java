@@ -10,12 +10,13 @@ import com.lazrproductions.lazrslib.screen.base.ScreenRect;
 import com.lazrproductions.lazrslib.ui.Alignment;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 public class LabelElement extends AbstractElement {
 
     final Component text;
+    final boolean renderShadow;
     final Alignment alignment;
     final int width;
     final int color;
@@ -24,7 +25,19 @@ public class LabelElement extends AbstractElement {
         super(instance, instance.font.lineHeight);
         this.text = text;
         this.alignment = alignment;
+
         this.color = color;
+        this.renderShadow = true;
+        
+        this.width = 0;
+    }
+    public LabelElement(@Nonnull Minecraft instance, @Nonnull Component text, @Nonnull Alignment alignment, int color, boolean renderShadow) {
+        super(instance, instance.font.lineHeight);
+        this.text = text;
+        this.alignment = alignment;
+
+        this.color = color;
+        this.renderShadow = renderShadow;
         
         this.width = 0;
     }
@@ -32,7 +45,20 @@ public class LabelElement extends AbstractElement {
         super(instance, height);
         this.text = text;
         this.alignment = alignment;
+
         this.color = color;
+        this.renderShadow = true;
+
+        this.width = 0;
+    }
+    public LabelElement(@Nonnull Minecraft instance, @Nonnull Component text, @Nonnull Alignment alignment, int color, boolean renderShadow, int height) {
+        super(instance, height);
+        this.text = text;
+        this.alignment = alignment;
+
+        this.color = color;
+        this.renderShadow = renderShadow;
+
 
         this.width = 0;
     }
@@ -40,7 +66,19 @@ public class LabelElement extends AbstractElement {
         super(instance, height);
         this.text = text;
         this.alignment = alignment;
+
         this.color = color;
+        this.renderShadow = true;
+
+        this.width = width;
+    }
+    public LabelElement(@Nonnull Minecraft instance, @Nonnull Component text, @Nonnull Alignment alignment, int color, boolean renderShadow, int width, int height) {
+        super(instance, height);
+        this.text = text;
+        this.alignment = alignment;
+
+        this.color = color;
+        this.renderShadow = renderShadow;
 
         this.width = width;
     }
@@ -56,6 +94,6 @@ public class LabelElement extends AbstractElement {
 
         FontUtilities.drawParagraph(instance, graphics, 
             pos, 
-            List.of(text), color, false);
+            List.of(text), color, renderShadow);
     }
 }

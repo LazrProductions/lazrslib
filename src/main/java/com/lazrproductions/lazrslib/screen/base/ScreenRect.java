@@ -1,6 +1,6 @@
 package com.lazrproductions.lazrslib.screen.base;
 
-import org.joml.Vector2i;
+import com.lazrproductions.lazrslib.math.Vector2i;
 
 import net.minecraft.util.Mth;
 

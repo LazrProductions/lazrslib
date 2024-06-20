@@ -8,7 +8,7 @@ import com.lazrproductions.lazrslib.screen.base.ScreenRect;
 import com.lazrproductions.lazrslib.ui.Alignment;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import com.lazrproductions.lazrslib.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemIconElement extends AbstractElement {
