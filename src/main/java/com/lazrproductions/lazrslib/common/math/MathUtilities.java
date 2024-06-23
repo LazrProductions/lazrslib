@@ -14,8 +14,8 @@ public class MathUtilities {
      * @param distance The distance from the from position to get the point
      */
     public static Vec3 GetPositionFromTowardsRotation(Vec3 from, double yaw, double pitch, double distance) {
-        yaw = Mth.RAD_TO_DEG*yaw;
-        pitch = Mth.RAD_TO_DEG*pitch;
+        yaw = Math.toDegrees(yaw);
+        pitch = Math.toDegrees(pitch);
         return GetPositionFromTowardsRotationInDegrees(from, yaw, pitch, distance);
     }
  

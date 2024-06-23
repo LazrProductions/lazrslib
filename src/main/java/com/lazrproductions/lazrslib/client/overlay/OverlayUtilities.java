@@ -307,6 +307,12 @@ public class OverlayUtilities {
             this.buffers = buffers;
             this.stack = stack;
         }
+        public OverlayProperties(@Nonnull Camera camera, @Nonnull Matrix4f matrix, @Nonnull RenderBuffers buffers) {
+            this.camera = camera;
+            this.buffers = buffers;
+            this.stack = new PoseStack();
+            this.stack.mulPose(matrix);
+        }
 
         public Vec3 getCameraPos() {
             return camera.getPosition();

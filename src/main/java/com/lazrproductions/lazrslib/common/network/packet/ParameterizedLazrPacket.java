@@ -1,7 +1,5 @@
 package com.lazrproductions.lazrslib.common.network.packet;
 
-import java.util.function.Supplier;
-
 import javax.annotation.Nonnull;
 
 import com.lazrproductions.lazrslib.LazrsLibMod;
@@ -12,8 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 public abstract class ParameterizedLazrPacket implements ILazrPacket {
 
@@ -43,11 +40,10 @@ public abstract class ParameterizedLazrPacket implements ILazrPacket {
     public abstract void loadValues(Object[] parameters);
 
     @Override
-    public void handle(Supplier<Context> context) {
-        NetworkEvent.Context ctx = context.get();
+    public void handle(CustomPayloadEvent.Context ctx) {
         ctx.enqueueWork(() -> {
             Minecraft inst = Minecraft.getInstance();
-            Player player = context.get().getSender() == null ? inst.player : context.get().getSender();
+            Player player = ctx.getSender() == null ? inst.player : ctx.getSender();
             if(player != null)
                 if(player.level().isClientSide())
                     handeClientside(player);
