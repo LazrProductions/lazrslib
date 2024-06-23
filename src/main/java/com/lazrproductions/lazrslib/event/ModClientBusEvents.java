@@ -1,8 +1,8 @@
 package com.lazrproductions.lazrslib.event;
 
 import com.lazrproductions.lazrslib.LazrsLibMod;
-import com.lazrproductions.lazrslib.overlay.base.InteractableOverlay;
-import com.lazrproductions.lazrslib.screen.base.GenericScreen;
+import com.lazrproductions.lazrslib.client.overlay.base.InteractableOverlay;
+import com.lazrproductions.lazrslib.client.screen.base.GenericScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
