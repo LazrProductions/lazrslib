@@ -13,15 +13,7 @@
 ## Features:
 
 * Screen Drawing Utilities
-* Overlay Utilities
+* Overlay Utilitiesa
 * NBT Utilities
 * API for interactable overlays and screens.
-
-<b> A library containing utilities for Lazr's Mods.</b>   
-
-## Features:
-
-* Screen Drawing Utilities
-* Overlay Utilities
-* NBT Utilities
-* API for interactable overlays and screens.
+* Simple Networking Solution
