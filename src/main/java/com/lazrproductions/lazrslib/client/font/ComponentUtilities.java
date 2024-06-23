@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 
 public class ComponentUtilities {
     public static List<Component> divideIntoWords(List<Component> list) {
@@ -17,7 +18,7 @@ public class ComponentUtilities {
             String[] l = list.get(i).getString().split(" ");
             Style style = list.get(i).getStyle();
             for (int j = 0; j < l.length; j++)
-                newList.add(Component.literal(l[j]).withStyle(style));
+                newList.add(new TextComponent(l[j]).withStyle(style));
         }
 
         return newList;
@@ -26,7 +27,7 @@ public class ComponentUtilities {
     public static int getTotalHeight(@Nonnull Minecraft instance, List<Component> list, int width) {
         int totalHeight = 0;
         for (int i = 0; i < list.size(); i++)
-            totalHeight += instance.font.wordWrapHeight(list.get(i), width);
+            totalHeight += instance.font.wordWrapHeight(list.get(i).getContents(), width);
         return totalHeight;
     }
 }

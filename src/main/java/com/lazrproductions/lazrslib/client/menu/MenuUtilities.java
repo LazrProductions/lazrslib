@@ -7,6 +7,6 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class MenuUtilities {
     public static void openCustomMenu(ServerPlayer player, MenuProvider menuProvider, BlockPos pos) {
-        NetworkHooks.openScreen(player, menuProvider, pos);
+        NetworkHooks.openGui(player, menuProvider, pos);
     }
 }

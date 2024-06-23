@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = LazrsLibMod.MODID, value = Dist.CLIENT)
 public class ModClientBusEvents {
     @SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event) {
+    public static void onKeyInput(InputEvent.KeyInputEvent event) {
         Minecraft inst = Minecraft.getInstance();
 
         if (inst != null) {
@@ -40,7 +40,7 @@ public class ModClientBusEvents {
     }
 
     @SubscribeEvent
-    public static void onMouseInput(InputEvent.MouseButton.Post event) {
+    public static void onMouseInput(InputEvent.MouseInputEvent event) {
         Minecraft inst = Minecraft.getInstance();
 
         if (inst != null) {

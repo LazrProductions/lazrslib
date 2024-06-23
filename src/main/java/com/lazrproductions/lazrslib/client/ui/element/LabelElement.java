@@ -85,7 +85,7 @@ public class LabelElement extends AbstractElement {
 
     @Override
     public void draw(@Nonnull Minecraft instance, @Nonnull GuiGraphics graphics, @Nonnull ScreenRect area, int mouseX, int mouseY, boolean mouseDown) {
-        int wrappedHeight = instance.font.wordWrapHeight(text, area.getWidth());
+        int wrappedHeight = instance.font.wordWrapHeight(text.getContents(), area.getWidth());
         BlitCoordinates pos = alignment.fitToArea(area.toBlitCoordinates(), wrappedHeight <= instance.font.lineHeight ? instance.font.width(text) : area.getWidth(), wrappedHeight);
 
         if(width > 0)

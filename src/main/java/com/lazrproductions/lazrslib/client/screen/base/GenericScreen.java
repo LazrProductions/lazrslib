@@ -9,13 +9,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class GenericScreen extends Screen {
     protected final GuiGraphics graphics;
-    
+
     Window window;
     int width;
     int height;
@@ -30,16 +31,16 @@ public abstract class GenericScreen extends Screen {
     protected GenericScreen(Component title) {
         super(title);
 
-        graphics = GuiGraphics.from(Minecraft.getInstance());
+        this.graphics = GuiGraphics.from(minecraft);
     }
     public GenericScreen(@Nonnull Minecraft instance) {
-        super(Component.literal(""));
+        super(new TextComponent(""));
         this.minecraft = instance;
         this.window = minecraft.getWindow();
         this.width = window.getWidth();
         this.height = window.getHeight();
-        
-        graphics = GuiGraphics.from(instance);
+
+        this.graphics = GuiGraphics.from(instance);
     }
 
     @Override

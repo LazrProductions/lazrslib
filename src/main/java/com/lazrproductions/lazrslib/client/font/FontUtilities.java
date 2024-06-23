@@ -30,7 +30,7 @@ public class FontUtilities {
         RenderSystem.disableBlend();
 
         for (int i = 0; i < list.size(); i++) {
-            String text = list.get(i).getString();
+            String text = list.get(i).getContents();
 
             graphics.drawString(instance.font, text,
                     x - instance.font.width(text) / 2,
@@ -55,11 +55,11 @@ public class FontUtilities {
         RenderSystem.disableBlend();
 
         FormattedText text = FormattedText.composite(list);
-        graphics.drawWordWrap(instance.font, text, x, y, maxWidth, color, renderShadow);
+        graphics.drawWordWrap(instance.font, text, x, y, maxWidth, color);
 
         RenderSystem.enableDepthTest();
 
-        return instance.font.wordWrapHeight(text, maxWidth);
+        return instance.font.wordWrapHeight(text.getString(), maxWidth);
     }
 
     public static int drawParagraph(Minecraft instance, GuiGraphics graphics, int x, int y, List<Component> list,
@@ -124,7 +124,7 @@ public class FontUtilities {
     public static boolean drawLinkWrapped(Minecraft instance, GuiGraphics graphics, BlitCoordinates pos, Component text,
             int color, int highlightedColor, boolean renderShadow, double mouseX, double mouseY, boolean mouseDown) {
         int areaWidth = pos.getWidth();
-        int areaHeight = instance.font.wordWrapHeight(text, areaWidth);
+        int areaHeight = instance.font.wordWrapHeight(text.getContents(), areaWidth);
         boolean highlighted = ScreenUtilities.mouseInArea(mouseX, mouseY,
                 pos.withWidth(areaWidth).withHeight(areaHeight).toRect());
 

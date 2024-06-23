@@ -42,6 +42,7 @@ public class ScreenUtilities {
     }
     public static void drawTexture(GuiGraphics graphics, BlitCoordinates pos, float rotation, float rotateAroundX, float rotateAroundY, ScreenTexture texture) {
         graphics.pose().pushPose();
+
         graphics.pose().translate(pos.getX() + rotateAroundX, pos.getY() + rotateAroundY, 0);
         graphics.pose().mulPose(Vector3f.ZP.rotationDegrees(rotation));
         graphics.pose().translate(-(pos.getX() + rotateAroundX), -(pos.getY() + rotateAroundY), 0);

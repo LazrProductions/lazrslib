@@ -2,6 +2,7 @@ package com.lazrproductions.lazrslib.client.overlay.base;
 
 import javax.annotation.Nonnull;
 
+import com.lazrproductions.lazrslib.client.gui.GuiGraphics;
 import com.lazrproductions.lazrslib.client.screen.base.InputAction;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
 
 public class InteractableOverlay extends Overlay {
+    protected final GuiGraphics graphics;
 
     final boolean lockView;
     final boolean showCroshair;
@@ -22,6 +24,8 @@ public class InteractableOverlay extends Overlay {
     
         this.lockView = lockView;
         this.showCroshair = showCroshair;
+
+        this.graphics = GuiGraphics.from(inst);
     }
 
     Minecraft minecraft;
