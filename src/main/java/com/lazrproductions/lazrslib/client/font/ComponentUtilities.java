@@ -26,7 +26,7 @@ public class ComponentUtilities {
     public static int getTotalHeight(@Nonnull Minecraft instance, List<Component> list, int width) {
         int totalHeight = 0;
         for (int i = 0; i < list.size(); i++)
-            totalHeight += instance.font.wordWrapHeight(list.get(i), width);
+            totalHeight += instance.font.wordWrapHeight(list.get(i).getString(), width);
         return totalHeight;
     }
 }

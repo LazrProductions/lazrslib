@@ -60,7 +60,7 @@ public class BulletLinkListElement extends AbstractElement {
                         area.toBlitCoordinates().move(-4, totalHeight).withWidth(LIST_ICON_SIZE).withHeight(LIST_ICON_SIZE), 
                         bulletTexture);
                     
-                    int localHeight = instance.font.wordWrapHeight(itemList.get(i).getFirst(), width - (LIST_ICON_SIZE - 4));
+                    int localHeight = instance.font.wordWrapHeight(itemList.get(i).getFirst().getString(), width - (LIST_ICON_SIZE - 4));
 
                     if(FontUtilities.drawLinkWrapped(instance, graphics, 
                             area.toBlitCoordinates().move((LIST_ICON_SIZE - 4), totalHeight).withWidth(area.toBlitCoordinates().getWidth() - (LIST_ICON_SIZE - 4)).withHeight(localHeight), 
@@ -80,7 +80,7 @@ public class BulletLinkListElement extends AbstractElement {
             static int getTotalHeight(@Nonnull Minecraft instance, int width, @Nonnull List<Pair<Component, OnClickFunction>> list) {
                 int totalHeight = 0;
                 for (int i = 0; i < list.size(); i++)
-                    totalHeight += instance.font.wordWrapHeight(list.get(i).getFirst(), width - (LIST_ICON_SIZE - 4)) + LIST_ITEM_PADDING;
+                    totalHeight += instance.font.wordWrapHeight(list.get(i).getFirst().getString(), width - (LIST_ICON_SIZE - 4)) + LIST_ITEM_PADDING;
                 return totalHeight;
             }
 }

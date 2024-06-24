@@ -56,7 +56,7 @@ public class BulletListElement extends AbstractElement {
                     area.toBlitCoordinates().move(-4, totalHeight).withWidth(LIST_ICON_SIZE).withHeight(LIST_ICON_SIZE),
                     bulletTexture);
 
-            int localHeight = instance.font.wordWrapHeight(itemList.get(i), width - (LIST_ICON_SIZE - 4));
+            int localHeight = instance.font.wordWrapHeight(itemList.get(i).getString(), width - (LIST_ICON_SIZE - 4));
 
             ScreenUtilities.drawParagraph(instance, graphics,
                     area.toBlitCoordinates().move((LIST_ICON_SIZE - 4), totalHeight)
@@ -72,7 +72,7 @@ public class BulletListElement extends AbstractElement {
     static int getTotalHeight(@Nonnull Minecraft instance, int width, @Nonnull List<Component> list) {
         int totalHeight = 0;
         for (int i = 0; i < list.size(); i++)
-            totalHeight += instance.font.wordWrapHeight(list.get(i), width - (LIST_ICON_SIZE - 4)) + LIST_ITEM_PADDING;
+            totalHeight += instance.font.wordWrapHeight(list.get(i).getString(), width - (LIST_ICON_SIZE - 4)) + LIST_ITEM_PADDING;
         return totalHeight;
     }
 }

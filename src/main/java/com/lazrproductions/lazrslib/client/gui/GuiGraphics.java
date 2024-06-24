@@ -25,7 +25,6 @@ import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -549,42 +548,6 @@ public class GuiGraphics {
          }
 
          this.pose.popPose();
-      }
-   }
-
-   public void renderItemDecorations(Font p_281721_, ItemStack p_281514_, int p_282056_, int p_282683_) {
-      this.renderItemDecorations(p_281721_, p_281514_, p_282056_, p_282683_, (String) null);
-   }
-
-   public void renderItemDecorations(Font font, ItemStack stack, int x, int y, @Nullable String p_282803_) {
-      if (!stack.isEmpty()) {
-         this.pose.pushPose();
-         if (stack.getCount() != 1 || p_282803_ != null) {
-            String s = p_282803_ == null ? String.valueOf(stack.getCount()) : p_282803_;
-            this.pose.translate(0.0F, 0.0F, 200.0F);
-            this.drawString(font, s, x + 19 - 2 - font.width(s), y + 6 + 3, 16777215, true);
-         }
-
-         if (stack.isBarVisible()) {
-            int l = stack.getBarWidth();
-            int i = stack.getBarColor();
-            int j = x + 2;
-            int k = y + 13;
-            this.fill(j, k, j + 13, k + 2, -16777216);
-            this.fill(j, k, j + l, k + 1, i | -16777216);
-         }
-
-         LocalPlayer localplayer = this.minecraft.player;
-         float f = localplayer == null ? 0.0F
-               : localplayer.getCooldowns().getCooldownPercent(stack.getItem(), this.minecraft.getFrameTime());
-         if (f > 0.0F) {
-            int i1 = y + Mth.floor(16.0F * (1.0F - f));
-            int j1 = i1 + Mth.ceil(16.0F * f);
-            this.fill(x, i1, x + 16, j1, Integer.MAX_VALUE);
-         }
-
-         this.pose.popPose();
-         net.minecraftforge.client.ItemDecoratorHandler.of(stack).render(font, stack, x, y, 0);
       }
    }
 

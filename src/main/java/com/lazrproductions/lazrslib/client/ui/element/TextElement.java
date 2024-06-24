@@ -30,13 +30,13 @@ public class TextElement extends AbstractElement {
                 this.renderShadow = renderShadow;
             }
             public TextElement(@Nonnull Minecraft instance, int width, @Nonnull Component text, int color) {
-                super(instance, instance.font.wordWrapHeight(text, width));
+                super(instance, instance.font.wordWrapHeight(text.getString(), width));
                 this.text = List.of(text);
                 this.color = color;
                 this.renderShadow = true;
             }
             public TextElement(@Nonnull Minecraft instance, int width, @Nonnull Component text, int color, boolean renderShadow) {
-                super(instance, instance.font.wordWrapHeight(text, width));
+                super(instance, instance.font.wordWrapHeight(text.getString(), width));
                 this.text = List.of(text);
                 this.color = color;
                 this.renderShadow = renderShadow;

@@ -59,7 +59,7 @@ public class FontUtilities {
 
         RenderSystem.enableDepthTest();
 
-        return instance.font.wordWrapHeight(text, maxWidth);
+        return instance.font.wordWrapHeight(text.getString(), maxWidth);
     }
 
     public static int drawParagraph(Minecraft instance, GuiGraphics graphics, int x, int y, List<Component> list,
@@ -124,7 +124,7 @@ public class FontUtilities {
     public static boolean drawLinkWrapped(Minecraft instance, GuiGraphics graphics, BlitCoordinates pos, Component text,
             int color, int highlightedColor, boolean renderShadow, double mouseX, double mouseY, boolean mouseDown) {
         int areaWidth = pos.getWidth();
-        int areaHeight = instance.font.wordWrapHeight(text, areaWidth);
+        int areaHeight = instance.font.wordWrapHeight(text.getString(), areaWidth);
         boolean highlighted = ScreenUtilities.mouseInArea(mouseX, mouseY,
                 pos.withWidth(areaWidth).withHeight(areaHeight).toRect());
 

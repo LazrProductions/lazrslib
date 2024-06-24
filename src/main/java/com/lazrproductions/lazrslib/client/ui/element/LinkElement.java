@@ -31,7 +31,7 @@ public class LinkElement extends AbstractElement {
 
     public LinkElement(@Nonnull Minecraft instance, int width, @Nonnull Component text, Alignment textAlignment,
             OnClickFunction supplier, int color, int highlightedColor) {
-        super(instance, instance.font.wordWrapHeight(text, width));
+        super(instance, instance.font.wordWrapHeight(text.getString(), width));
         this.text = text;
         this.alignText = textAlignment;
         this.color = color;
