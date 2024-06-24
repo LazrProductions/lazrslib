@@ -1,9 +1,7 @@
 package com.lazrproductions.lazrslib.common.network;
 
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
@@ -19,24 +17,24 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.network.CustomPayloadEvent;
+import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.network.SimpleChannel;
+import net.minecraftforge.network.Channel.VersionTest;
 
 public class LazrNetwork {
     final SimpleChannel network;
-    final String version;
+    final int version;
     private int id = 0;
 
-    public LazrNetwork(ResourceLocation location, String version) {
+    public LazrNetwork(ResourceLocation location, int version) {
         this.version = version;
-        this.network = NetworkRegistry.ChannelBuilder.named(location)
-                .clientAcceptedVersions(this.version::equals)
-                .serverAcceptedVersions(this.version::equals)
-                .networkProtocolVersion(() -> this.version)
+        this.network = ChannelBuilder.named(location)
+                .clientAcceptedVersions(VersionTest.exact(this.version))
+                .serverAcceptedVersions(VersionTest.exact(this.version))
+                .networkProtocolVersion(this.version)
                 .simpleChannel();
     }
 
@@ -52,16 +50,20 @@ public class LazrNetwork {
     
 
     public <T extends ILazrPacket> void registerPacket(Class<T> c, Function<FriendlyByteBuf, T> decoder,
-            @Nullable NetworkDirection direction) {
+            @Nullable NetworkDirection<?> direction) {
         registerPacket(c, ILazrPacket::encode, decoder, ILazrPacket::handle, direction);
     }
 
     public <T extends ILazrPacket> void registerPacket(Class<T> c, BiConsumer<T, FriendlyByteBuf> encoder,
-            Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> consumer,
-            @Nullable NetworkDirection direction) {
-        this.network.registerMessage(this.id++, c, encoder, decoder, consumer, Optional.ofNullable(direction));
+            Function<FriendlyByteBuf, T> decoder, BiConsumer<T, CustomPayloadEvent.Context> consumer,
+            @Nullable NetworkDirection<?> direction) {
+        this.network.messageBuilder(c, getNextId()).encoder(encoder).decoder(decoder).consumerNetworkThread(consumer).add();
     }
 
+
+    private int getNextId() {
+        return id++;
+    }
 
     /* Sending packets */
 
@@ -71,7 +73,7 @@ public class LazrNetwork {
      * @param msg Packet to send
      */
     public void sendToServer(Object msg) {
-        this.network.sendToServer(msg);
+        this.network.send(msg, PacketDistributor.SERVER.noArg());
     }
 
     /**
@@ -81,7 +83,7 @@ public class LazrNetwork {
      * @param message Packet to send
      */
     public void send(PacketDistributor.PacketTarget target, Object message) {
-        network.send(target, message);
+        network.send(message, target);
     }
 
     /**
@@ -115,9 +117,7 @@ public class LazrNetwork {
      * @param player Player to send
      */
     public void sendTo(Object msg, ServerPlayer player) {
-        if (!(player instanceof FakePlayer)) {
-            network.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-        }
+        network.send(msg, player.connection.getConnection());
     }
 
     /**
@@ -129,7 +129,7 @@ public class LazrNetwork {
      */
     public void sendToClientsAround(Object msg, ServerLevel serverWorld, BlockPos position) {
         LevelChunk chunk = serverWorld.getChunkAt(position);
-        network.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), msg);
+        network.send(msg, PacketDistributor.TRACKING_CHUNK.with(chunk));
     }
 
     /**
@@ -139,7 +139,7 @@ public class LazrNetwork {
      * @param entity Entity to check
      */
     public void sendToTrackingAndSelf(Object msg, Entity entity) {
-        this.network.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
+        this.network.send(msg, PacketDistributor.TRACKING_ENTITY_AND_SELF.with(entity));
     }
 
     /**
@@ -149,7 +149,7 @@ public class LazrNetwork {
      * @param entity Entity to check
      */
     public void sendToTracking(Object msg, Entity entity) {
-        this.network.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), msg);
+        this.network.send(msg, PacketDistributor.TRACKING_ENTITY.with(entity));
     }
 
     /**

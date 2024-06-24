@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import com.lazrproductions.lazrslib.client.render.OverlayRenderType;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,6 +20,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
@@ -33,7 +35,7 @@ public class OverlayUtilities {
             PoseStack stack = p.getPoseStack();
             Vec3 cameraPos = p.getCameraPos();
 
-            Quaternionf cameraRot = p.getCameraRotation();
+            Quaternionf cameraRot = p.getCameraRotation().rotateAxis(Mth.PI, new Vector3f(0, 1, 0));
             Font font = inst.font;
             float scale = textScale / 50;
             BufferSource bufferSource = p.getBufferSource();
@@ -287,10 +289,8 @@ public class OverlayUtilities {
             float green = (float) FastColor.ARGB32.green(color) / 255.0F;
             float blue = (float) FastColor.ARGB32.blue(color) / 255.0F;
 
-            consumer.vertex(model, fromX, fromY, fromZ).color(red, green, blue, 1)
-                    .endVertex();
-            consumer.vertex(model, toX, toY, toZ).color(red, green, blue, 1)
-                    .endVertex();
+            consumer.addVertex(model, fromX, fromY, fromZ).setColor(red, green, blue, 1);
+            consumer.addVertex(model, toX, toY, toZ).setColor(red, green, blue, 1);
         }
 
         p.getBufferSource().endBatch();
@@ -306,6 +306,12 @@ public class OverlayUtilities {
             this.camera = camera;
             this.buffers = buffers;
             this.stack = stack;
+        }
+        public OverlayProperties(@Nonnull Camera camera, @Nonnull Matrix4f matrix, @Nonnull RenderBuffers buffers) {
+            this.camera = camera;
+            this.buffers = buffers;
+            this.stack = new PoseStack();
+            this.stack.mulPose(matrix);
         }
 
         public Vec3 getCameraPos() {
