@@ -16,3 +16,4 @@
 * NBT Utilities
 * API for interactable overlays and screens.
 * Simple Networking Solution
+* Easy and Flexible Config Solution

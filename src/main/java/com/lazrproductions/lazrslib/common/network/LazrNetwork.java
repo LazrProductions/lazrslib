@@ -31,8 +31,9 @@ public class LazrNetwork {
     final String version;
     private int id = 0;
 
-    public LazrNetwork(ResourceLocation location, String version) {
-        this.version = version;
+    public LazrNetwork(ResourceLocation location, int version) {
+        String v = String.valueOf(version);
+        this.version = v;
         this.network = NetworkRegistry.ChannelBuilder.named(location)
                 .clientAcceptedVersions(this.version::equals)
                 .serverAcceptedVersions(this.version::equals)
