@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
-import com.lazrproductions.lazrslib.client.render.OverlayRenderType;
+import com.lazrproductions.lazrslib.client.render.LazrRenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -326,7 +326,7 @@ public class OverlayUtilities {
         }
 
         public VertexConsumer getConsumerForSolid() {
-            final RenderType r = OverlayRenderType.overlaySolidRenderType();
+            final RenderType r = LazrRenderTypes.overlaySolidRenderType();
             return buffers.bufferSource().getBuffer(r);
         }
 

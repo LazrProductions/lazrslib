@@ -6,9 +6,9 @@ import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 
 import net.minecraft.client.renderer.RenderType;
 
-public class OverlayRenderType extends RenderType {
+public class LazrRenderTypes extends RenderType {
 
-    public OverlayRenderType(String nameIn, VertexFormat formatIn, Mode drawMode, int bufferSizeIn,
+    public LazrRenderTypes(String nameIn, VertexFormat formatIn, Mode drawMode, int bufferSizeIn,
             boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {
         super(nameIn, formatIn, drawMode, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
     }

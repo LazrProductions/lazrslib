@@ -50,7 +50,7 @@ public abstract class ParameterizedLazrPacket implements ILazrPacket {
             Player player = context.get().getSender() == null ? inst.player : context.get().getSender();
             if(player != null)
                 if(player.level().isClientSide())
-                    handeClientside(player);
+                    handleClientside(player);
                 else
                     handleServerside((ServerPlayer)player);
             else
@@ -59,6 +59,6 @@ public abstract class ParameterizedLazrPacket implements ILazrPacket {
         ctx.setPacketHandled(true);
     }
 
-    public abstract void handeClientside(@Nonnull Player player);
+    public abstract void handleClientside(@Nonnull Player player);
     public abstract void handleServerside(@Nonnull ServerPlayer player);
 }
