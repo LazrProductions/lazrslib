@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import com.lazrproductions.lazrslib.common.math.Divisor;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -19,7 +18,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 
-import it.unimi.dsi.fastutil.ints.IntIterator;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
@@ -37,7 +35,6 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -393,93 +390,6 @@ public class GuiGraphics {
       RenderSystem.disableBlend();
    }
 
-   public void blitNineSliced(ResourceLocation p_282546_, int p_282275_, int p_281581_, int p_283274_, int p_281626_,
-         int p_283005_, int p_282047_, int p_282125_, int p_283423_, int p_281424_) {
-      this.blitNineSliced(p_282546_, p_282275_, p_281581_, p_283274_, p_281626_, p_283005_, p_283005_, p_283005_,
-            p_283005_, p_282047_, p_282125_, p_283423_, p_281424_);
-   }
-
-   public void blitNineSliced(ResourceLocation p_282543_, int p_281513_, int p_281865_, int p_282482_, int p_282661_,
-         int p_282068_, int p_281294_, int p_281681_, int p_281957_, int p_282300_, int p_282769_) {
-      this.blitNineSliced(p_282543_, p_281513_, p_281865_, p_282482_, p_282661_, p_282068_, p_281294_, p_282068_,
-            p_281294_, p_281681_, p_281957_, p_282300_, p_282769_);
-   }
-
-   public void blitNineSliced(ResourceLocation p_282712_, int p_283509_, int p_283259_, int p_283273_, int p_282043_,
-         int p_281430_, int p_281412_, int p_282566_, int p_281971_, int p_282879_, int p_281529_, int p_281924_,
-         int p_281407_) {
-      p_281430_ = Math.min(p_281430_, p_283273_ / 2);
-      p_282566_ = Math.min(p_282566_, p_283273_ / 2);
-      p_281412_ = Math.min(p_281412_, p_282043_ / 2);
-      p_281971_ = Math.min(p_281971_, p_282043_ / 2);
-      if (p_283273_ == p_282879_ && p_282043_ == p_281529_) {
-         this.blit(p_282712_, p_283509_, p_283259_, p_281924_, p_281407_, p_283273_, p_282043_);
-      } else if (p_282043_ == p_281529_) {
-         this.blit(p_282712_, p_283509_, p_283259_, p_281924_, p_281407_, p_281430_, p_282043_);
-         this.blitRepeating(p_282712_, p_283509_ + p_281430_, p_283259_, p_283273_ - p_282566_ - p_281430_, p_282043_,
-               p_281924_ + p_281430_, p_281407_, p_282879_ - p_282566_ - p_281430_, p_281529_);
-         this.blit(p_282712_, p_283509_ + p_283273_ - p_282566_, p_283259_, p_281924_ + p_282879_ - p_282566_,
-               p_281407_, p_282566_, p_282043_);
-      } else if (p_283273_ == p_282879_) {
-         this.blit(p_282712_, p_283509_, p_283259_, p_281924_, p_281407_, p_283273_, p_281412_);
-         this.blitRepeating(p_282712_, p_283509_, p_283259_ + p_281412_, p_283273_, p_282043_ - p_281971_ - p_281412_,
-               p_281924_, p_281407_ + p_281412_, p_282879_, p_281529_ - p_281971_ - p_281412_);
-         this.blit(p_282712_, p_283509_, p_283259_ + p_282043_ - p_281971_, p_281924_,
-               p_281407_ + p_281529_ - p_281971_, p_283273_, p_281971_);
-      } else {
-         this.blit(p_282712_, p_283509_, p_283259_, p_281924_, p_281407_, p_281430_, p_281412_);
-         this.blitRepeating(p_282712_, p_283509_ + p_281430_, p_283259_, p_283273_ - p_282566_ - p_281430_, p_281412_,
-               p_281924_ + p_281430_, p_281407_, p_282879_ - p_282566_ - p_281430_, p_281412_);
-         this.blit(p_282712_, p_283509_ + p_283273_ - p_282566_, p_283259_, p_281924_ + p_282879_ - p_282566_,
-               p_281407_, p_282566_, p_281412_);
-         this.blit(p_282712_, p_283509_, p_283259_ + p_282043_ - p_281971_, p_281924_,
-               p_281407_ + p_281529_ - p_281971_, p_281430_, p_281971_);
-         this.blitRepeating(p_282712_, p_283509_ + p_281430_, p_283259_ + p_282043_ - p_281971_,
-               p_283273_ - p_282566_ - p_281430_, p_281971_, p_281924_ + p_281430_, p_281407_ + p_281529_ - p_281971_,
-               p_282879_ - p_282566_ - p_281430_, p_281971_);
-         this.blit(p_282712_, p_283509_ + p_283273_ - p_282566_, p_283259_ + p_282043_ - p_281971_,
-               p_281924_ + p_282879_ - p_282566_, p_281407_ + p_281529_ - p_281971_, p_282566_, p_281971_);
-         this.blitRepeating(p_282712_, p_283509_, p_283259_ + p_281412_, p_281430_, p_282043_ - p_281971_ - p_281412_,
-               p_281924_, p_281407_ + p_281412_, p_281430_, p_281529_ - p_281971_ - p_281412_);
-         this.blitRepeating(p_282712_, p_283509_ + p_281430_, p_283259_ + p_281412_, p_283273_ - p_282566_ - p_281430_,
-               p_282043_ - p_281971_ - p_281412_, p_281924_ + p_281430_, p_281407_ + p_281412_,
-               p_282879_ - p_282566_ - p_281430_, p_281529_ - p_281971_ - p_281412_);
-         this.blitRepeating(p_282712_, p_283509_ + p_283273_ - p_282566_, p_283259_ + p_281412_, p_281430_,
-               p_282043_ - p_281971_ - p_281412_, p_281924_ + p_282879_ - p_282566_, p_281407_ + p_281412_, p_282566_,
-               p_281529_ - p_281971_ - p_281412_);
-      }
-   }
-
-   public void blitRepeating(ResourceLocation p_283059_, int p_283575_, int p_283192_, int p_281790_, int p_283642_,
-         int p_282691_, int p_281912_, int p_281728_, int p_282324_) {
-      blitRepeating(p_283059_, p_283575_, p_283192_, p_281790_, p_283642_, p_282691_, p_281912_, p_281728_, p_282324_,
-            256, 256);
-   }
-
-   public void blitRepeating(ResourceLocation p_283059_, int p_283575_, int p_283192_, int p_281790_, int p_283642_,
-         int p_282691_, int p_281912_, int p_281728_, int p_282324_, int textureWidth, int textureHeight) {
-      int i = p_283575_;
-
-      int j;
-      for (IntIterator intiterator = slices(p_281790_, p_281728_); intiterator.hasNext(); i += j) {
-         j = intiterator.nextInt();
-         int k = (p_281728_ - j) / 2;
-         int l = p_283192_;
-
-         int i1;
-         for (IntIterator intiterator1 = slices(p_283642_, p_282324_); intiterator1.hasNext(); l += i1) {
-            i1 = intiterator1.nextInt();
-            int j1 = (p_282324_ - i1) / 2;
-            this.blit(p_283059_, i, l, p_282691_ + k, p_281912_ + j1, j, i1, textureWidth, textureHeight);
-         }
-      }
-
-   }
-
-   private static IntIterator slices(int p_282197_, int p_282161_) {
-      int i = Mth.positiveCeilDiv(p_282197_, p_282161_);
-      return new Divisor(p_282197_, i);
-   }
 
    public void renderItem(ItemStack p_281978_, int p_282647_, int p_281944_) {
       this.renderItem(this.minecraft.player, this.minecraft.level, p_281978_, p_282647_, p_281944_, 0);
@@ -499,7 +409,7 @@ public class GuiGraphics {
    }
 
    public void renderItem(LivingEntity entity, ItemStack p_282777_, int p_282110_, int p_281371_, int p_283572_) {
-      this.renderItem(entity, entity.getLevel(), p_282777_, p_282110_, p_281371_, p_283572_);
+      this.renderItem(entity, entity.level,  p_282777_, p_282110_, p_281371_, p_283572_);
    }
 
    private void renderItem(@Nullable LivingEntity p_283524_, @Nullable Level p_282461_, ItemStack p_283653_,

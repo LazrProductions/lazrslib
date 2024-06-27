@@ -20,19 +20,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class LazrNetwork {
     final SimpleChannel network;
     final String version;
     private int id = 0;
 
-    public LazrNetwork(ResourceLocation location, String version) {
-        this.version = version;
+    public LazrNetwork(ResourceLocation location, int version) {
+        this.version = String.valueOf(version);
         this.network = NetworkRegistry.ChannelBuilder.named(location)
                 .clientAcceptedVersions(this.version::equals)
                 .serverAcceptedVersions(this.version::equals)

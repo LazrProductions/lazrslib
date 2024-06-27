@@ -3,7 +3,7 @@ package com.lazrproductions.lazrslib.common.network.base;
 import java.util.function.Supplier;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public interface ILazrPacket {
 

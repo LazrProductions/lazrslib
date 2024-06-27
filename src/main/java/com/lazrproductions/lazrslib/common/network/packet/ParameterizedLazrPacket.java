@@ -12,8 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 public abstract class ParameterizedLazrPacket implements ILazrPacket {
 
@@ -43,14 +42,14 @@ public abstract class ParameterizedLazrPacket implements ILazrPacket {
     public abstract void loadValues(Object[] parameters);
 
     @Override
-    public void handle(Supplier<Context> context) {
+    public void handle(Supplier<NetworkEvent.Context> context) {
         NetworkEvent.Context ctx = context.get();
         ctx.enqueueWork(() -> {
             Minecraft inst = Minecraft.getInstance();
             Player player = context.get().getSender() == null ? inst.player : context.get().getSender();
             if(player != null)
-                if(player.getLevel().isClientSide())
-                    handeClientside(player);
+                if(player.level.isClientSide())
+                    handleClientside(player);
                 else
                     handleServerside((ServerPlayer)player);
             else
@@ -59,6 +58,6 @@ public abstract class ParameterizedLazrPacket implements ILazrPacket {
         ctx.setPacketHandled(true);
     }
 
-    public abstract void handeClientside(@Nonnull Player player);
+    public abstract void handleClientside(@Nonnull Player player);
     public abstract void handleServerside(@Nonnull ServerPlayer player);
 }
