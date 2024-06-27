@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-// The value e should match an entry in the META-INF/mods.toml file
 @Mod(LazrsLibMod.MODID)
 public class LazrsLibMod {
     public static final Logger LOGGER = LogManager.getLogger(LazrsLibMod.MODID);
