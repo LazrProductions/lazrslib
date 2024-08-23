@@ -9,7 +9,5 @@ public interface ILazrPacket {
 
   void encode(FriendlyByteBuf buffer);
 
-  void read(FriendlyByteBuf buffer);
-
   void handle(Supplier<NetworkEvent.Context> context);
 }
