@@ -41,6 +41,7 @@ public class LazrNetwork {
                 .simpleChannel();
     }
 
+    
     public <T extends ILazrPacket> void registerClientBoundPacket(Class<T> c, Function<FriendlyByteBuf, T> decoder) {
         registerPacket(c, ILazrPacket::encode, decoder, ILazrPacket::handle, NetworkDirection.PLAY_TO_CLIENT);
     }
