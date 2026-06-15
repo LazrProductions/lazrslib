@@ -25,9 +25,12 @@ run
 .fleet
 run/log4j2.xml
 blockbench
+libs/
 
+changelog.txt
+howtotestcuffed.txt
 roadmap.txt
+thingsToFix.txt
 
 # Files from Forge MDK
 forge*changelog.txt
-src/main/java/com/lazrproductions/lazrslib/testing
