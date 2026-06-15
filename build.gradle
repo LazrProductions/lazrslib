@@ -32,7 +32,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
         	arg '--mixin.config'
-			arg 'mixins.lazrslib.json'
+			arg 'mixins.cuffed.json'
 
             mods {
                 "${mod_id}" {
@@ -48,7 +48,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
             arg '--mixin.config'
-			arg 'mixins.lazrslib.json'
+			arg 'mixins.cuffed.json'
 
             mods {
                 "${mod_id}" {
@@ -92,14 +92,35 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    // Require Lazr's Lib
+    implementation fg.deobf("curse.maven:lazrs-lib-${lazrslib_maven}")
+
+    // Optional Dependencies
+
+    compileOnly fg.deobf("curse.maven:better-combat-by-daedelus-639842:5065424") // Better Combat
+    compileOnly fg.deobf("curse.maven:epic-fight-mod-405076:7185742") // Epic Fight
+    compileOnly fg.deobf("curse.maven:parcool-482378:4944983") // Parcool
+    compileOnly fg.deobf("curse.maven:elenai-dodge-2-442962:4814313") // elenai dodge 2
+    
+    compileOnly fg.deobf("curse.maven:irons-spells-n-spellbooks-855414:5377916") // Iron spell n' spellbooks
+    compileOnly fg.deobf("curse.maven:ars-nouveau-401955:5371927") // Ars Nouveau
+    compileOnly fg.deobf("curse.maven:mana-and-artifice-406360:6847805") // Mana and Artifice
+    compileOnly fg.deobf("curse.maven:knights-of-britannia-1111064:7377347") // Knights of Britannia
+
+    compileOnly fg.deobf("curse.maven:timeless-and-classics-zero-1028108:6654541") // TacZ
+
+    compileOnly files('libs/playerrevive.jar') // Player Revive
+
+    compileOnly fg.deobf("curse.maven:simple-voice-chat-416089:5605428") // Simple Voice Chat
+
     // Apply Mixin AP
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 
 mixin {
-    add sourceSets.main, 'mixin.lazrslib.refmap.json'
-    config 'mixins.lazrslib.json'
+    add sourceSets.main, 'mixin.cuffed.refmap.json'
+    config 'mixins.cuffed.json'
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
@@ -108,7 +129,8 @@ def replaceProperties = [
         forge_version: forge_version, forge_version_range: forge_version_range,
         loader_version_range: loader_version_range,
         mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-        mod_authors: mod_authors, mod_description: mod_description
+        mod_authors: mod_authors, mod_description: mod_description, lazrslib_maven:lazrslib_maven,
+        lazrslib_version_range: lazrslib_version_range
 ]
 
 processResources {
@@ -131,7 +153,7 @@ jar {
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : mod_authors,
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": "mixins.lazrslib.json"
+                "MixinConfigs": "mixins.cuffed.json"
         ])
     }
 }
