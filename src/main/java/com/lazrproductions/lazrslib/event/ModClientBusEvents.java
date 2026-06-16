@@ -5,14 +5,13 @@ import com.lazrproductions.lazrslib.client.overlay.base.InteractableOverlay;
 import com.lazrproductions.lazrslib.client.screen.base.GenericScreen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.event.TickEvent.Phase;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
-@Mod.EventBusSubscriber(modid = LazrsLibMod.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = LazrsLibMod.MODID, value = Dist.CLIENT)
 public class ModClientBusEvents {
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event) {
@@ -53,16 +52,14 @@ public class ModClientBusEvents {
     }
 
     @SubscribeEvent
-    public void clientTick(ClientTickEvent event) {
-        if (event.phase == Phase.END) {
-            Minecraft inst = Minecraft.getInstance();
-            if(inst != null) {
-                if (inst.screen instanceof GenericScreen sc)
-                    sc.tick();
+    public static void clientTick(ClientTickEvent.Post event) {
+        Minecraft inst = Minecraft.getInstance();
+        if (inst != null) {
+            if (inst.screen instanceof GenericScreen sc)
+                sc.tick();
 
-                if (inst.getOverlay() instanceof InteractableOverlay io)
-                    io.tick();
-            }
+            if (inst.getOverlay() instanceof InteractableOverlay io)
+                io.tick();
         }
     }
 }

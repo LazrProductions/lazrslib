@@ -1,8 +1,8 @@
 package com.lazrproductions.lazrslib.common.tag;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
@@ -24,19 +24,19 @@ public class TagUtilities {
     }
 
 
-    public static NonNullList<ItemStack> fromTag(ListTag tag) {
+    public static NonNullList<ItemStack> fromTag(ListTag tag, HolderLookup.Provider registries) {
         NonNullList<ItemStack> items = NonNullList.withSize(tag.size(), ItemStack.EMPTY);
         for (int i = 0; i < tag.size(); i++) {
-            items.set(i, ItemStack.of(tag.getCompound(i)));
+            items.set(i, ItemStack.parseOptional(registries, tag.getCompound(i)));
         } 
         return items;
     }
-    public static ListTag toTag(NonNullList<ItemStack> items) {
+    public static ListTag toTag(NonNullList<ItemStack> items, HolderLookup.Provider registries) {
         ListTag list = new ListTag();
         items.forEach((c) -> {
-            CompoundTag t = new CompoundTag();
-            c.save(t); 
-            list.add(t);
+            if (!c.isEmpty()) {
+                list.add(c.save(registries));
+            }
         });
         return list;
     }

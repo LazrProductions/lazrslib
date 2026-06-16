@@ -6,9 +6,7 @@ import com.lazrproductions.lazrslib.common.network.LazrNetworkedParameterHandler
 import com.lazrproductions.lazrslib.common.network.base.ILazrPacket;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public abstract class ParameterizedLazrPacket implements ILazrPacket {
 
@@ -33,19 +31,17 @@ public abstract class ParameterizedLazrPacket implements ILazrPacket {
     }
     public abstract void loadValues(Object[] parameters);
 
-    public void handle(Supplier<Context> context) {
-        NetworkEvent.Context ctx = context.get();
-        ctx.enqueueWork(() -> {
-            NetworkDirection dir = ctx.getDirection();
-            if(dir == NetworkDirection.PLAY_TO_SERVER || dir == NetworkDirection.LOGIN_TO_SERVER)
+    @Override
+    public void handle(IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (context.flow() == net.minecraft.network.protocol.PacketFlow.SERVERBOUND)
                 handleServerside(context);
             else
                 handleClientside(context);
         });
-        ctx.setPacketHandled(true);
     }
 
 
-    public abstract void handleClientside(Supplier<Context> supplier);
-    public abstract void handleServerside(Supplier<Context> supplier);
+    public abstract void handleClientside(IPayloadContext context);
+    public abstract void handleServerside(IPayloadContext context);
 }

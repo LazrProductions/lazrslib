@@ -28,8 +28,8 @@ public class LevelUtilities {
         CompoundTag tag = new CompoundTag();
         boolean hasBlockEntity = e != null;
         if(e != null) {
-            tag = e.saveWithoutMetadata();
-            e.load(new CompoundTag());
+            tag = e.saveWithoutMetadata(level.registryAccess());
+            e.loadWithComponents(new CompoundTag(), level.registryAccess());
         }
 
 
@@ -39,7 +39,7 @@ public class LevelUtilities {
         if(hasBlockEntity) {
             BlockEntity o = level.getBlockEntity(toPos);
             if(o != null)
-                o.load(tag);
+                o.loadWithComponents(tag, level.registryAccess());
         }
 
         return true;

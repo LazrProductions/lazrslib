@@ -287,10 +287,8 @@ public class OverlayUtilities {
             float green = (float) FastColor.ARGB32.green(color) / 255.0F;
             float blue = (float) FastColor.ARGB32.blue(color) / 255.0F;
 
-            consumer.vertex(model, fromX, fromY, fromZ).color(red, green, blue, 1)
-                    .endVertex();
-            consumer.vertex(model, toX, toY, toZ).color(red, green, blue, 1)
-                    .endVertex();
+            consumer.addVertex(model, fromX, fromY, fromZ).setColor(red, green, blue, 1.0F);
+            consumer.addVertex(model, toX, toY, toZ).setColor(red, green, blue, 1.0F);
         }
 
         p.getBufferSource().endBatch();
