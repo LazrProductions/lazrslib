@@ -2,7 +2,7 @@ package com.lazrproductions.lazrslib.common.config;
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
 
 public class ConfigProperty<T> extends AbstractConfigField{
     final String name;
@@ -33,6 +33,6 @@ public class ConfigProperty<T> extends AbstractConfigField{
         return comment;
     }
     public T get() {
-        return value.get();
+        return value == null ? defaultValue : value.get();
     }
 }

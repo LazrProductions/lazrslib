@@ -6,13 +6,13 @@ import javax.annotation.Nonnull;
 
 import com.lazrproductions.lazrslib.LazrsLibMod;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
 
 public abstract class LazrConfig {
-    final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-    ForgeConfigSpec spec;
+    final ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+    ModConfigSpec spec;
 
 
     final String name;
@@ -44,7 +44,7 @@ public abstract class LazrConfig {
     }
 
     
-    ForgeConfigSpec buildConfig() {
+    ModConfigSpec buildConfig() {
         builder.push(name +" Config");
 
         buildGenericProperties();
@@ -52,8 +52,9 @@ public abstract class LazrConfig {
         buildCategories();
 
         builder.pop();
+        spec = builder.build();
         LazrsLibMod.LOGGER.info("Built config '" + name +"' Successfully!");
-        return builder.build();
+        return spec;
     }
 
     void buildGenericProperties() {
@@ -85,7 +86,7 @@ public abstract class LazrConfig {
     }
 
 
-    public void registerConfig(@Nonnull final ModLoadingContext ctx) {
-        ctx.registerConfig(getType(), buildConfig(), getConfigName());
+    public void registerConfig(@Nonnull final ModContainer container) {
+        container.registerConfig(getType(), buildConfig(), getConfigName());
     }
 }

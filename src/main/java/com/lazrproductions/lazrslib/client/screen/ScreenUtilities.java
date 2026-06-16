@@ -30,7 +30,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class ScreenUtilities {
-    static final ResourceLocation GENERIC_PROGRESS_BAR_LOCATION = new ResourceLocation(LazrsLibMod.MODID, "textures/gui/progress_bar.png");
+    static final ResourceLocation GENERIC_PROGRESS_BAR_LOCATION = ResourceLocation.fromNamespaceAndPath(LazrsLibMod.MODID, "textures/gui/progress_bar.png");
 
     
     public static void drawTexture(GuiGraphics graphics, BlitCoordinates pos, ScreenTexture texture) {
@@ -146,7 +146,7 @@ public class ScreenUtilities {
             graphics.pose().translate((float) (x + (size / 2)), (float) (y + (size / 2)), (float) (150 + (bakedmodel.isGui3d() ? 0 : 0)));
             
             try {
-                graphics.pose().mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
+                graphics.pose().mulPose((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
                 graphics.pose().scale(size, size, size);
                 boolean flag = !bakedmodel.usesBlockLight();
                 if (flag) {
@@ -166,12 +166,12 @@ public class ScreenUtilities {
                     return String.valueOf((Object) stack.getItem());
                 });
                 crashreportcategory.setDetail("Registry Name", () -> String
-                        .valueOf(net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(stack.getItem())));
+                        .valueOf(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem())));
                 crashreportcategory.setDetail("Item Damage", () -> {
                     return String.valueOf(stack.getDamageValue());
                 });
                 crashreportcategory.setDetail("Item NBT", () -> {
-                    return String.valueOf((Object) stack.getTag());
+                    return String.valueOf((Object) stack.getComponents());
                 });
                 crashreportcategory.setDetail("Item Foil", () -> {
                     return String.valueOf(stack.hasFoil());

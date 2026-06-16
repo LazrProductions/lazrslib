@@ -1,13 +1,11 @@
 package com.lazrproductions.lazrslib.common.network.base;
 
-import java.util.function.Supplier;
-
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public interface ILazrPacket {
 
   void encode(FriendlyByteBuf buffer);
 
-  void handle(Supplier<NetworkEvent.Context> context);
+  void handle(IPayloadContext context);
 }

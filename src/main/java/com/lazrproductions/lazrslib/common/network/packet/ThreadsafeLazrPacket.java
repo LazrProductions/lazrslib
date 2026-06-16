@@ -1,20 +1,14 @@
 package com.lazrproductions.lazrslib.common.network.packet;
 
-import java.util.function.Supplier;
-
 import com.lazrproductions.lazrslib.common.network.base.ILazrPacket;
-
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public interface ThreadsafeLazrPacket extends ILazrPacket {
 
     @Override
-    default void handle(Supplier<Context> context) {
-        NetworkEvent.Context ctx = context.get();
-        ctx.enqueueWork(() -> handleThreadsafe(ctx));
-        ctx.setPacketHandled(true);
+    default void handle(IPayloadContext context) {
+        context.enqueueWork(() -> handleThreadsafe(context));
     }
 
-    void handleThreadsafe(NetworkEvent.Context ctx);
+    void handleThreadsafe(IPayloadContext context);
 }
