@@ -9,7 +9,6 @@ public class ConfigProperty<T> implements IConfigProperty<T> {
     final String comment;
     final T defaultValue;
 
-    // Optional: set by ConfigCategory when the property is inside a category
     String categoryPath = null;
 
     public ConfigProperty(@NotNull LazrConfig config, String name, String description, T defaultValue) {
@@ -19,7 +18,6 @@ public class ConfigProperty<T> implements IConfigProperty<T> {
         this.defaultValue = defaultValue;
     }
 
-    /** Called by ConfigCategory so the property knows its full path */
     public void setCategoryPath(String category) {
         this.categoryPath = category;
     }

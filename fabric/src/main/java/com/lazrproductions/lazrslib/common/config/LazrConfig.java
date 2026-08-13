@@ -23,11 +23,11 @@ public abstract class LazrConfig implements ILazrConfig {
 
         Path configPath = FabricLoader.getInstance()
                 .getConfigDir()
-                .resolve(getConfigName()); // e.g. "mymod-common.toml"
+                .resolve(getConfigName());
 
         this.config = CommentedFileConfig.builder(configPath)
-                .sync()                     // keep file in sync
-                .autosave()                 // auto-save on change
+                .sync() 
+                .autosave()
                 .writingMode(WritingMode.REPLACE)
                 .build();
 
