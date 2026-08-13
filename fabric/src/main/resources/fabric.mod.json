@@ -1,0 +1,40 @@
+{
+    "schemaVersion": 1,
+    "id": "lazrslib",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${description}",
+    "authors": [
+        "${mod_author}"
+    ],
+    "contact": {
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/lazrs-lib",
+        "sources": "https://github.com/LazrProductions/lazrslib",
+        "issues": "https://github.com/LazrProductions/lazrslib/issues"
+    },
+    "license": "${license}",
+    "icon": "assets/modid/${mod_id}.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.lazrproductions.lazrslib.LazrsLibMod"
+        ],
+        "client": [
+            "com.lazrproductions.lazrslib.LazrsLibClientMod"
+        ]
+    },
+    "mixins": [
+        "${mod_id}.mixins.json",
+        "${mod_id}.fabric.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.14",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}",
+        "java": ">=17"
+    },
+    "suggests": {
+        "another-mod": "*"
+    }
+}
+  
