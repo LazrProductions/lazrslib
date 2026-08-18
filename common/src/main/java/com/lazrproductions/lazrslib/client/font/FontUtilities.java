@@ -44,12 +44,6 @@ public class FontUtilities {
             width = Math.max(width, font.width(text) + 10);
         }
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         for (int i = 0; i < list.size(); i++) {
             String text = list.get(i).getString();
             graphics.drawString(font, text,
@@ -57,7 +51,6 @@ public class FontUtilities {
                     y + ((list.size() / 2) * space + (space * i)),
                     color, renderShadow);
         }
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw the given list of components to the screen, each on their own line.
@@ -105,18 +98,10 @@ public class FontUtilities {
      * @param renderShadow Whether to draw the text's drop shadow.
      */
     public static void renderLabel(@NotNull Font font, @NotNull GuiGraphics graphics, int x, int y, String text, int color, boolean renderShadow) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.drawString(font, text,
                 x - font.width(text) / 2,
                 y,
                 color, renderShadow);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw text to the screen.
@@ -168,16 +153,8 @@ public class FontUtilities {
      * @param renderShadow Whether to draw the text's drop shadow.
      */
     public static void drawParagraph(@NotNull Font font, @NotNull GuiGraphics graphics, int x, int y, @NotNull String text, int maxWidth, int color, boolean renderShadow) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         FormattedText para = FormattedText.of(text);
         graphics.drawWordWrap(font, para, x, y, maxWidth, color);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw text to the screen and wrap it to fit within the given blit coordinates.
@@ -227,16 +204,8 @@ public class FontUtilities {
      * @param renderShadow Whether to draw the text's drop shadow.
      */
     public static void drawParagraph(@NotNull Font font, @NotNull GuiGraphics graphics, int x, int y, @NotNull Component component, int maxWidth, int color, boolean renderShadow) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         FormattedText para = FormattedText.composite(component);
         graphics.drawWordWrap(font, para, x, y, maxWidth, color);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw a component to the screen and wrap it to fit within the given blit coordinates.
@@ -286,16 +255,8 @@ public class FontUtilities {
      * @param renderShadow Whether to draw the text's drop shadow.
      */
     public static void drawParagraph(@NotNull Font font, @NotNull GuiGraphics graphics, int x, int y, @NotNull List<Component> list, int maxWidth, int color, boolean renderShadow) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         FormattedText text = FormattedText.composite(list);
         graphics.drawWordWrap(font, text, x, y, maxWidth, color);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw a list of components to the screen, each on their own line.
@@ -345,15 +306,7 @@ public class FontUtilities {
      * @param renderShadow Whether to draw the text's drop shadow.
      */
     public static void drawText(@NotNull Font font, @NotNull GuiGraphics graphics, int x, int y, @NotNull String text, int color, boolean renderShadow) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.drawString(font, text, x, y, color, renderShadow);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw text to the screen.
@@ -378,15 +331,7 @@ public class FontUtilities {
      * @param renderShadow Whether to draw the text's drop shadow.
      */
     public static void drawText(@NotNull Font font, @NotNull GuiGraphics graphics, int x, int y, @NotNull Component component, int color, boolean renderShadow) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.drawString(font, component, x, y, color, renderShadow);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw text to the screen.
@@ -411,15 +356,7 @@ public class FontUtilities {
     public static void drawText(@NotNull Font font, @NotNull GuiGraphics graphics, @NotNull ScreenCoordinate pos, @NotNull String text, int color, boolean renderShadow) {
         pos = pos.withHeight(font.lineHeight).withWidth(font.width(text));
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.drawString(font, text, pos.getX(), pos.getY(), color, renderShadow);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw text to the screen.
@@ -444,15 +381,7 @@ public class FontUtilities {
     public static void drawText(@NotNull Font font, @NotNull GuiGraphics graphics, @NotNull ScreenCoordinate pos, @NotNull Component component, int color, boolean renderShadow) {
         pos = pos.withHeight(font.lineHeight).withWidth(font.width(component));
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.drawString(font, component, pos.getX(), pos.getY(), color, renderShadow);
-
-        RenderSystem.enableDepthTest();
     }
 
 
