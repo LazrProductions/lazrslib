@@ -54,7 +54,5 @@ public abstract class GenericScreen extends Screen {
         lastKeyInput = new InputAction(keyCode, action);
     }
 
-    public void onClose() {
-
-    }
+    public void onClose() {}
 }

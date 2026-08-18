@@ -56,18 +56,9 @@ public class ScreenUtilities {
     public static void drawTexture(@Nonnull GuiGraphics graphics, @Nonnull ScreenCoordinate pos, float rotation, float rotateAroundX, float rotateAroundY, @Nonnull ScreenTexture texture) {
         graphics.pose().pushPose();
         graphics.pose().rotateAround(Axis.ZP.rotationDegrees(rotation), pos.getX() + rotateAroundX, pos.getY() + rotateAroundY, 0);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.blit(texture.getResourceLocation(), pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(),
                 texture.getU(), texture.getV(), texture.getBoundsX(), texture.getBoundsY(), texture.getWidth(),
                 texture.getHeight());
-
-        RenderSystem.enableDepthTest();
         graphics.pose().popPose();
     }
 
@@ -92,16 +83,7 @@ public class ScreenUtilities {
 
         float uvXF = texture.getU() + (column * texture.getBoundsX());
         float uvYF = texture.getV() + (row * texture.getBoundsY());
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.blit(texture.getResourceLocation(), pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight(), uvXF, uvYF, texture.getBoundsX(), texture.getBoundsY(), texture.getWidth(), texture.getHeight());
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw a generic progress bar, similar in look to the durability bar.
@@ -110,17 +92,9 @@ public class ScreenUtilities {
      * @param progress The current progress of the bar as a percentage between 0 and 1.
      */
     public static void drawGenericProgressBar(@Nonnull GuiGraphics graphics, @Nonnull ScreenCoordinate pos, float progress) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.fill(pos.getX(), pos.getY(), pos.getX() + pos.getWidth(), pos.getY() + 2, 1325400064);
         int i = Mth.hsvToRgb(progress / 3.0F, 1.0F, 1.0F);
         graphics.fill(pos.getX(), pos.getY(), pos.getX() + (int) (pos.getWidth() * progress), pos.getY() + 1, i | -16777216);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw a generic progress bar that fills vertically, from bottom to top.
@@ -131,19 +105,10 @@ public class ScreenUtilities {
      */
     public static void drawGenericProgressBarVertical(@Nonnull GuiGraphics graphics, @Nonnull ScreenCoordinate pos, float progress) {
         progress = Mth.clamp(progress, 0, 2);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.fill(pos.getX(), pos.getY(), pos.getX() + 2, pos.getY() + pos.getHeight(), 1325400064);
         int i = Mth.hsvToRgb(progress / 3.0F, 1.0F, 1.0F);
         progress = Mth.clamp(progress, 0, 1f);
         graphics.fill(pos.getX(), pos.getY() + pos.getHeight(), pos.getX() + 1, pos.getY() + pos.getHeight() - (int) (pos.getHeight() * progress), i | -16777216);
-
-        RenderSystem.enableDepthTest();
     }
     /**
      * Draw a generic progress bar that fills vertically and shakes more and more as it fills..
@@ -158,19 +123,10 @@ public class ScreenUtilities {
         int shakeX = 0;
         if(progress > 1)
             shakeX = Mth.floor(Mth.sin(partialTick*(100f*(progress - 1)) * 2f)-1);
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
         graphics.fill(pos.getX() + shakeX, pos.getY(), pos.getX() + 2 + shakeX, pos.getY() + pos.getHeight(), 1325400064);
         int i = Mth.hsvToRgb(progress / 3.0F, 1.0F, 1.0F);
         progress = Mth.clamp(progress, 0, 1f);
         graphics.fill(pos.getX() + shakeX, pos.getY() + pos.getHeight(), pos.getX() + 1 + shakeX, pos.getY() + pos.getHeight() - (int) (pos.getHeight() * progress), i | -16777216);
-
-        RenderSystem.enableDepthTest();
     }
 
 
@@ -234,12 +190,6 @@ public class ScreenUtilities {
             graphics.pose().pushPose();
             graphics.pose().translate((float) (x + (size / 2)), (float) (y + (size / 2)), (float) (150));
 
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.defaultBlendFunc();
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableDepthTest();
-            RenderSystem.disableBlend();
-
             try {
                 graphics.pose().mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
                 graphics.pose().scale(size, size, size);
@@ -265,8 +215,6 @@ public class ScreenUtilities {
                 crashreportcategory.setDetail("Item Foil", () -> String.valueOf(stack.hasFoil()));
                 throw new ReportedException(crashreport);
             }
-
-            RenderSystem.enableDepthTest();
             graphics.pose().popPose();
         }
     }
@@ -286,12 +234,6 @@ public class ScreenUtilities {
 
             graphics.pose().pushPose();
             graphics.pose().translate((float) (x + (width / 2)), (float) (y + (height / 2)), (float) (150));
-
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.defaultBlendFunc();
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableDepthTest();
-            RenderSystem.disableBlend();
 
             try {
                 graphics.pose().mulPoseMatrix((new Matrix4f()).scaling(1.0F, -1.0F, 1.0F));
@@ -319,7 +261,6 @@ public class ScreenUtilities {
                 throw new ReportedException(crashreport);
             }
 
-            RenderSystem.enableDepthTest();
             graphics.pose().popPose();
         }
     }
